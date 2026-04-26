@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bianca Muteve — AI-Assisted Curriculum Design</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --warm: #c8a96e;
+    --sage: #4a6741;
+    --cream: #f5f0e8;
+    --muted: #6b6b7a;
+    --rule: #d4cfc4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 50px;
+    position: relative;
+  }
+
+  /* Header */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 40px;
+    border-bottom: 1.5px solid var(--ink);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+
+  .name {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+  }
+
+  .name span {
+    display: block;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--warm);
+    margin-bottom: 8px;
+  }
+
+  .tag-block {
+    text-align: right;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--cream);
+    background: var(--sage);
+    padding: 5px 12px;
+    margin-bottom: 8px;
+  }
+
+  .tag-block p {
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* Section label */
+  .section-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--warm);
+    margin-bottom: 14px;
+  }
+
+  /* Intro */
+  .intro {
+    margin-bottom: 40px;
+  }
+
+  .intro-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--ink);
+    margin-bottom: 16px;
+    max-width: 680px;
+  }
+
+  .intro p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--muted);
+    max-width: 640px;
+  }
+
+  /* Two column layout */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 48px;
+    margin-bottom: 40px;
+  }
+
+  /* What was simulated */
+  .sim-block h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    margin-bottom: 16px;
+  }
+
+  .week-list {
+    list-style: none;
+  }
+
+  .week-list li {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .week-list li:last-child { border-bottom: none; }
+
+  .week-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--warm);
+    min-width: 28px;
+    letter-spacing: 1px;
+  }
+
+  /* Judgement moments */
+  .moments-block h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    margin-bottom: 16px;
+  }
+
+  .moment {
+    background: white;
+    border-left: 3px solid var(--sage);
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+
+  .moment-title {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--sage);
+    margin-bottom: 5px;
+  }
+
+  .moment p {
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  /* Outcomes strip */
+  .outcomes-strip {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 28px 32px;
+    margin-bottom: 40px;
+  }
+
+  .outcomes-strip .section-label {
+    color: var(--warm);
+    margin-bottom: 18px;
+  }
+
+  .outcomes-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .outcome-item {
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 14px;
+  }
+
+  .outcome-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--warm);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .outcome-item p {
+    font-size: 11.5px;
+    line-height: 1.6;
+    color: rgba(245,240,232,0.75);
+  }
+
+  /* Capabilities */
+  .capabilities {
+    margin-bottom: 40px;
+  }
+
+  .cap-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .cap-item {
+    border: 1px solid var(--rule);
+    padding: 18px;
+  }
+
+  .cap-icon {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .cap-item h4 {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+
+  .cap-item p {
+    font-size: 11.5px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1.5px solid var(--ink);
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer p {
+    font-size: 11px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .footer-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    color: var(--ink);
+  }
+
+  /* CTA download button */
+  .cta-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--ink);
+    padding: 20px 28px;
+    margin-bottom: 40px;
+  }
+
+  .cta-bar p {
+    font-size: 12px;
+    color: rgba(245,240,232,0.7);
+    font-style: italic;
+    max-width: 480px;
+    line-height: 1.6;
+  }
+
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--warm);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+  }
+
+  .cta-btn:hover { opacity: 0.85; }
+
+  /* Contact links in footer */
+  .footer-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .footer-links a {
+    font-size: 11px;
+    color: var(--sage);
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--sage);
+    padding-bottom: 1px;
+    transition: opacity 0.2s;
+  }
+
+  .footer-links a:hover { opacity: 0.7; }
+
+  @media print {
+    body { background: white; }
+    .page { padding: 40px; }
+    .cta-bar { display: none; }
+  }
+
+  @media (max-width: 640px) {
+    .page { padding: 30px 24px; }
+    .header { grid-template-columns: 1fr; gap: 16px; }
+    .two-col { grid-template-columns: 1fr; gap: 32px; }
+    .outcomes-grid { grid-template-columns: repeat(2, 1fr); }
+    .cap-grid { grid-template-columns: 1fr; }
+    .cta-bar { flex-direction: column; gap: 16px; text-align: center; }
+    .footer { flex-direction: column; gap: 12px; text-align: center; }
+    .footer-links { justify-content: center; }
+    .name { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div>
+      <div class="name">
+        <span>Portfolio Artefact</span>
+        Bianca Muteve
+      </div>
+    </div>
+    <div class="tag-block">
+      <div class="tag">AI Collaboration in Practice</div>
+      <p>Learning Designer · Higher Education</p>
+    </div>
+  </div>
+
+  <!-- Intro -->
+  <div class="intro">
+    <div class="section-label">The Simulation</div>
+    <p class="intro-headline">"How I use AI as a genuine thinking partner — not a content generator — in complex curriculum design."</p>
+    <p>This artefact documents a live simulation in which I designed a new first-year theology unit from scratch using AI as a collaborative partner. The unit — exploring the intersection of Catholic Social Teaching and Indigenous Australian spirituality — was chosen deliberately for its cultural complexity, ethical stakes, and multi-stakeholder demands. The simulation demonstrates my professional judgement, design process, and critical approach to AI-assisted practice.</p>
+  </div>
+
+  <!-- Two column -->
+  <div class="two-col">
+    <div class="sim-block">
+      <div class="section-label">What Was Designed</div>
+      <h3>Six-Week Unit: Ways of Knowing</h3>
+      <ul class="week-list">
+        <li><span class="week-num">WK 1</span> How Do We Know What We Know? — Introducing epistemology</li>
+        <li><span class="week-num">WK 2</span> Knowing Through Relationship — Community and belonging</li>
+        <li><span class="week-num">WK 3</span> Knowing Through Place — Land, Country, and creation</li>
+        <li><span class="week-num">WK 4</span> Knowing Through Suffering — Justice, healing, and truth</li>
+        <li><span class="week-num">WK 5</span> Knowing Through Practice — Wisdom and professional life</li>
+        <li><span class="week-num">WK 6</span> Knowing Yourself — Reflection and positionality</li>
+      </ul>
+    </div>
+
+    <div class="moments-block">
+      <div class="section-label">Moments of Professional Judgement</div>
+      <h3>Where expertise shaped the AI</h3>
+      <div class="moment">
+        <div class="moment-title">Correcting the outcomes</div>
+        <p>AI generated 6 outcomes. I applied curriculum design principles and reduced to 4 — the right number for a 6-week unit.</p>
+      </div>
+      <div class="moment">
+        <div class="moment-title">Challenging the MCQ</div>
+        <p>AI accepted a proposed MCQ quiz. I flagged its misalignment with the unit's epistemological intent and proposed a scenario-based alternative.</p>
+      </div>
+      <div class="moment">
+        <div class="moment-title">Holding the cultural stakes</div>
+        <p>I consistently named the ethical weight of Indigenous content — the AI reflected this back but the compass was mine.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Outcomes strip -->
+  <div class="outcomes-strip">
+    <div class="section-label">Final Unit Learning Outcomes</div>
+    <div class="outcomes-grid">
+      <div class="outcome-item">
+        <div class="outcome-num">01</div>
+        <p>Foundations and Understanding — Ways of knowing, CST principles, Indigenous spiritual foundations</p>
+      </div>
+      <div class="outcome-item">
+        <div class="outcome-num">02</div>
+        <p>Dialogue and Critical Inquiry — Analyse convergence, divergence, and tension across shared human themes</p>
+      </div>
+      <div class="outcome-item">
+        <div class="outcome-num">03</div>
+        <p>Reflection and Cultural Responsibility — Positionality, assumptions, and culturally safe engagement</p>
+      </div>
+      <div class="outcome-item">
+        <div class="outcome-num">04</div>
+        <p>Professional and Ethical Application — Apply both frameworks to disciplinary practice and ethical challenges</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Bar -->
+  <div class="cta-bar">
+    <p>This one-pager is a summary. The full case study documents the complete design process — structural decisions, assessment rationale, learning outcomes, and moments of professional judgement in detail.</p>
+    <a class="cta-btn" href="bianca_muteve_case_study.pdf" target="_blank">
+      ↓ Download Full Case Study
+    </a>
+  </div>
+
+  <!-- Capabilities demonstrated -->
+  <div class="capabilities">
+    <div class="section-label">Capabilities Demonstrated</div>
+    <div class="cap-grid">
+      <div class="cap-item">
+        <div class="cap-icon">⟳</div>
+        <h4>AI as Collaborator</h4>
+        <p>Using AI iteratively to develop, stress-test, and refine design decisions — not to generate finished content.</p>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon">◈</div>
+        <h4>Curriculum Architecture</h4>
+        <p>Backward design from outcomes through assessment to weekly sequence, with coherent pedagogical logic.</p>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon">◎</div>
+        <h4>Cultural Competency</h4>
+        <p>Navigating sensitive cross-cultural content with ethical awareness and structural safeguards.</p>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon">⬡</div>
+        <h4>Inclusive Design</h4>
+        <p>Scaffolding for a diverse cohort — international students, secular learners, varied disciplines — without lowering expectations.</p>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon">◻</div>
+        <h4>SME Partnership</h4>
+        <p>Designing for multi-voice collaboration with clear ownership structures and production-realistic workflows.</p>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon">◇</div>
+        <h4>Critical AI Literacy</h4>
+        <p>Knowing when to accept, adapt, challenge, or override AI output — and articulating the professional reasoning behind each decision.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Simulation conducted April 2026 · Higher Education · Learning Design</p>
+    <div class="footer-links">
+      <a href="mailto:your@email.com">your@email.com</a>
+      <a href="https://linkedin.com/in/yourprofile" target="_blank">LinkedIn</a>
+      <a href="bianca_muteve_case_study.pdf" target="_blank">Full Case Study ↓</a>
+    </div>
+    <div class="footer-name">Bianca Muteve</div>
+  </div>
+
+</div>
+</body>
+</html>
