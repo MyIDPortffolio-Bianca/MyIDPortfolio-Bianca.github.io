@@ -3,494 +3,940 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bianca Muteve — AI Assisted Curriculum Design</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Bianca Muteve — Learning Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #1a1a2e;
-    --warm: #c8a96e;
-    --sage: #4a6741;
+    --ink:   #1a1a2e;
+    --warm:  #c8a96e;
+    --sage:  #4a6741;
     --cream: #f5f0e8;
     --muted: #6b6b7a;
-    --rule: #d4cfc4;
+    --rule:  #d4cfc4;
+    --white: #ffffff;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
 
   body {
     background: var(--cream);
     color: var(--ink);
     font-family: 'DM Sans', sans-serif;
     font-weight: 300;
-    min-height: 100vh;
+    line-height: 1.7;
   }
 
-  .page {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 60px 50px;
-    position: relative;
+  /* ── NAV ─────────────────────────────────────────────── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--ink);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 48px;
+    height: 56px;
+    border-bottom: 2px solid var(--warm);
   }
 
-  /* Header */
-  .header {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: start;
-    gap: 40px;
-    border-bottom: 1.5px solid var(--ink);
-    padding-bottom: 32px;
-    margin-bottom: 40px;
-  }
-
-  .name {
+  .nav-logo {
     font-family: 'Playfair Display', serif;
-    font-size: 42px;
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.5px;
+    font-size: 16px;
+    color: var(--cream);
+    text-decoration: none;
+    letter-spacing: 0.3px;
   }
 
-  .name span {
-    display: block;
-    font-size: 14px;
-    font-family: 'DM Sans', sans-serif;
+  .nav-logo span { color: var(--warm); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.7);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active { color: var(--warm); }
+
+  /* ── HERO ────────────────────────────────────────────── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    min-height: calc(100vh - 56px);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 48px;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .hero-text { animation: fadeUp 0.8s ease both; }
+
+  .hero-eyebrow {
+    font-size: 10px;
     font-weight: 500;
     letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--warm);
-    margin-bottom: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 
-  .tag-block {
-    text-align: right;
+  .hero-eyebrow::after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 48px;
+    background: var(--warm);
   }
 
-  .tag {
-    display: inline-block;
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 6vw, 68px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(18px, 2.5vw, 24px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+
+  .hero-philosophy {
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--ink);
+    max-width: 520px;
+    margin-bottom: 40px;
+    border-left: 3px solid var(--sage);
+    padding-left: 20px;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 14px 28px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: var(--sage);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 13px 28px;
+    border: 1px solid var(--ink);
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .btn-secondary:hover {
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  /* Photo block */
+  .hero-photo {
+    animation: fadeUp 0.8s 0.2s ease both;
+    position: relative;
+  }
+
+  .photo-frame {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.92;
+  }
+
+  .photo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgba(245,240,232,0.3);
+    font-size: 13px;
+    letter-spacing: 1px;
+    gap: 12px;
+  }
+
+  .photo-placeholder svg {
+    width: 48px;
+    height: 48px;
+    opacity: 0.3;
+  }
+
+  .photo-accent {
+    position: absolute;
+    bottom: -16px;
+    right: -16px;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--warm);
+    z-index: -1;
+  }
+
+  .photo-tag {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: var(--warm);
+    color: var(--ink);
     font-size: 10px;
     font-weight: 500;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--cream);
-    background: var(--sage);
-    padding: 5px 12px;
-    margin-bottom: 8px;
+    padding: 6px 14px;
   }
 
-  .tag-block p {
-    font-size: 12px;
-    color: var(--muted);
-    font-style: italic;
+  /* Stats strip */
+  .stats-strip {
+    background: var(--ink);
+    padding: 0 48px;
   }
 
-  /* Section label */
-  .section-label {
+  .stats-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-left: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .stat {
+    padding: 28px 32px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: var(--warm);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: rgba(245,240,232,0.55);
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+  }
+
+  /* ── PHILOSOPHY ──────────────────────────────────────── */
+  .philosophy {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 48px;
+  }
+
+  .section-eyebrow {
     font-size: 10px;
     font-weight: 500;
     letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--warm);
-    margin-bottom: 14px;
-  }
-
-  /* Intro */
-  .intro {
-    margin-bottom: 40px;
-  }
-
-  .intro-headline {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-style: italic;
-    font-weight: 400;
-    line-height: 1.5;
-    color: var(--ink);
-    margin-bottom: 16px;
-    max-width: 680px;
-  }
-
-  .intro p {
-    font-size: 14px;
-    line-height: 1.8;
-    color: var(--muted);
-    max-width: 640px;
-  }
-
-  /* Two column layout */
-  .two-col {
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 48px;
-    margin-bottom: 40px;
-  }
-
-  /* What was simulated */
-  .sim-block h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 17px;
     margin-bottom: 16px;
   }
 
-  .week-list {
-    list-style: none;
-  }
-
-  .week-list li {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--rule);
-    font-size: 13px;
-    line-height: 1.5;
-  }
-
-  .week-list li:last-child { border-bottom: none; }
-
-  .week-num {
+  .section-heading {
     font-family: 'Playfair Display', serif;
-    font-size: 11px;
+    font-size: clamp(28px, 4vw, 42px);
     font-weight: 700;
-    color: var(--warm);
-    min-width: 28px;
-    letter-spacing: 1px;
+    line-height: 1.15;
+    margin-bottom: 48px;
+    max-width: 600px;
   }
 
-  /* Judgement moments */
-  .moments-block h3 {
+  .philosophy-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .phil-card {
+    background: var(--white);
+    padding: 36px 32px;
+    position: relative;
+    transition: transform 0.2s;
+  }
+
+  .phil-card:hover { transform: translateY(-4px); }
+
+  .phil-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--sage);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .phil-card:hover::before { transform: scaleX(1); }
+
+  .phil-num {
     font-family: 'Playfair Display', serif;
-    font-size: 17px;
+    font-size: 48px;
+    color: var(--rule);
+    line-height: 1;
     margin-bottom: 16px;
+    font-weight: 700;
   }
 
-  .moment {
-    background: white;
-    border-left: 3px solid var(--sage);
-    padding: 14px 16px;
-    margin-bottom: 12px;
-  }
-
-  .moment-title {
-    font-size: 12px;
+  .phil-title {
+    font-size: 13px;
     font-weight: 500;
     letter-spacing: 0.5px;
     color: var(--sage);
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
   }
 
-  .moment p {
-    font-size: 12.5px;
-    line-height: 1.6;
+  .phil-body {
+    font-size: 13.5px;
+    line-height: 1.75;
     color: var(--muted);
   }
 
-  /* Outcomes strip */
-  .outcomes-strip {
+  /* ── FRAMEWORKS ──────────────────────────────────────── */
+  .frameworks {
     background: var(--ink);
-    color: var(--cream);
-    padding: 28px 32px;
-    margin-bottom: 40px;
+    padding: 100px 48px;
   }
 
-  .outcomes-strip .section-label {
-    color: var(--warm);
-    margin-bottom: 18px;
+  .frameworks-inner {
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
-  .outcomes-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-  }
+  .frameworks-inner .section-eyebrow { color: var(--warm); }
 
-  .outcome-item {
-    border-top: 1px solid rgba(255,255,255,0.15);
-    padding-top: 14px;
-  }
+  .frameworks-inner .section-heading { color: var(--cream); }
 
-  .outcome-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 28px;
-    color: var(--warm);
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-
-  .outcome-item p {
-    font-size: 11.5px;
-    line-height: 1.6;
-    color: rgba(245,240,232,0.75);
-  }
-
-  /* Capabilities */
-  .capabilities {
-    margin-bottom: 40px;
-  }
-
-  .cap-grid {
+  .framework-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-top: 16px;
+    gap: 32px;
+    margin-top: 48px;
   }
 
-  .cap-item {
-    border: 1px solid var(--rule);
-    padding: 18px;
+  .framework-item {
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 28px;
   }
 
-  .cap-icon {
+  .framework-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .framework-name {
+    font-family: 'Playfair Display', serif;
     font-size: 20px;
+    color: var(--cream);
     margin-bottom: 10px;
   }
 
-  .cap-item h4 {
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    margin-bottom: 6px;
+  .framework-desc {
+    font-size: 13px;
+    line-height: 1.75;
+    color: rgba(245,240,232,0.6);
   }
 
-  .cap-item p {
-    font-size: 11.5px;
-    line-height: 1.6;
+  /* ── FOCUS AREAS ─────────────────────────────────────── */
+  .focus {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 48px;
+  }
+
+  .focus-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .focus-card {
+    border: 1px solid var(--rule);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .focus-card:hover { border-color: var(--warm); }
+
+  .focus-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--warm);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .focus-card:hover::after { transform: scaleX(1); }
+
+  .focus-tag {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--cream);
+    background: var(--sage);
+    padding: 4px 10px;
+    display: inline-block;
+    margin-bottom: 18px;
+  }
+
+  .focus-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .focus-body {
+    font-size: 13px;
+    line-height: 1.75;
     color: var(--muted);
   }
 
-  /* Footer */
-  .footer {
-    border-top: 1.5px solid var(--ink);
-    padding-top: 20px;
+  /* ── PORTFOLIO STRIP ─────────────────────────────────── */
+  .portfolio-strip {
+    background: var(--sage);
+    padding: 72px 48px;
+  }
+
+  .portfolio-inner {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 48px;
   }
 
-  .footer p {
+  .portfolio-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 3vw, 36px);
+    color: var(--cream);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .portfolio-text p {
+    font-size: 14px;
+    color: rgba(245,240,232,0.75);
+    max-width: 480px;
+    line-height: 1.7;
+  }
+
+  .portfolio-ctas {
+    display: flex;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+
+  .btn-light {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--cream);
+    color: var(--ink);
+    text-decoration: none;
     font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 14px 28px;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+
+  .btn-light:hover { background: var(--warm); }
+
+  .btn-outline-light {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 13px 28px;
+    border: 1px solid rgba(245,240,232,0.5);
+    transition: border-color 0.2s, background 0.2s;
+    white-space: nowrap;
+  }
+
+  .btn-outline-light:hover {
+    border-color: var(--cream);
+    background: rgba(245,240,232,0.1);
+  }
+
+  /* ── WORKING WITH ME ─────────────────────────────────── */
+  .working {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .working-left .section-heading { margin-bottom: 24px; }
+
+  .working-left p {
+    font-size: 14px;
+    line-height: 1.85;
     color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .non-negotiable {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 28px 32px;
+    margin-top: 32px;
+    border-left: 4px solid var(--warm);
+  }
+
+  .non-negotiable p {
+    font-family: 'Playfair Display', serif;
     font-style: italic;
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(245,240,232,0.9);
+    margin: 0;
+  }
+
+  .expect-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .expect-item {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+
+  .expect-item:first-child { border-top: 1px solid var(--rule); }
+
+  .expect-arrow {
+    color: var(--warm);
+    font-size: 14px;
+    margin-top: 2px;
+  }
+
+  .expect-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .expect-body {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ── FOOTER ──────────────────────────────────────────── */
+  footer {
+    background: var(--ink);
+    border-top: 2px solid var(--warm);
+    padding: 40px 48px;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
   }
 
   .footer-name {
     font-family: 'Playfair Display', serif;
-    font-size: 13px;
-    color: var(--ink);
+    font-size: 18px;
+    color: var(--cream);
   }
 
-  /* CTA download button */
-  .cta-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--ink);
-    padding: 20px 28px;
-    margin-bottom: 40px;
-  }
+  .footer-name span { color: var(--warm); }
 
-  .cta-bar p {
-    font-size: 12px;
-    color: rgba(245,240,232,0.7);
-    font-style: italic;
-    max-width: 480px;
-    line-height: 1.6;
-  }
-
-  .cta-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--warm);
-    color: var(--ink);
-    text-decoration: none;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 10px 20px;
-    white-space: nowrap;
-    transition: opacity 0.2s;
-  }
-
-  .cta-btn:hover { opacity: 0.85; }
-
-  /* Contact links in footer */
   .footer-links {
     display: flex;
-    gap: 20px;
-    align-items: center;
+    gap: 24px;
+    list-style: none;
   }
 
   .footer-links a {
     font-size: 11px;
-    color: var(--sage);
+    color: rgba(245,240,232,0.55);
     text-decoration: none;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    border-bottom: 1px solid var(--sage);
-    padding-bottom: 1px;
-    transition: opacity 0.2s;
+    letter-spacing: 1px;
+    transition: color 0.2s;
   }
 
-  .footer-links a:hover { opacity: 0.7; }
+  .footer-links a:hover { color: var(--warm); }
 
-  @media print {
-    body { background: white; }
-    .page { padding: 40px; }
-    .cta-bar { display: none; }
+  .footer-copy {
+    font-size: 11px;
+    color: rgba(245,240,232,0.3);
   }
 
-  @media (max-width: 640px) {
-    .page { padding: 30px 24px; }
-    .header { grid-template-columns: 1fr; gap: 16px; }
-    .two-col { grid-template-columns: 1fr; gap: 32px; }
-    .outcomes-grid { grid-template-columns: repeat(2, 1fr); }
-    .cap-grid { grid-template-columns: 1fr; }
-    .cta-bar { flex-direction: column; gap: 16px; text-align: center; }
-    .footer { flex-direction: column; gap: 12px; text-align: center; }
-    .footer-links { justify-content: center; }
-    .name { font-size: 32px; }
+  /* ── ANIMATIONS ──────────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ──────────────────────────────────────── */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { gap: 20px; }
+
+    .hero {
+      grid-template-columns: 1fr;
+      padding: 60px 24px;
+      gap: 48px;
+      min-height: auto;
+    }
+
+    .hero-photo { max-width: 320px; }
+
+    .stats-inner { grid-template-columns: repeat(2, 1fr); padding: 0 24px; }
+    .stats-strip { padding: 0; }
+
+    .philosophy, .focus, .working { padding: 60px 24px; }
+    .frameworks { padding: 60px 24px; }
+    .portfolio-strip { padding: 48px 24px; }
+
+    .philosophy-grid,
+    .framework-row,
+    .focus-grid { grid-template-columns: 1fr; }
+
+    .working {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+
+    .portfolio-inner { flex-direction: column; gap: 32px; }
+    .portfolio-ctas { flex-wrap: wrap; }
+
+    .footer-inner { flex-direction: column; text-align: center; gap: 16px; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .hero-ctas { flex-direction: column; }
+    .stats-inner { grid-template-columns: 1fr 1fr; }
+    footer { padding: 32px 24px; }
   }
 </style>
 </head>
 <body>
-<div class="page">
 
-  <!-- Header -->
-  <div class="header">
-    <div>
-      <div class="name">
-        <span>Portfolio Artefact</span>
-        Bianca Muteve
-      </div>
-    </div>
-    <div class="tag-block">
-      <div class="tag">AI Collaboration in Practice</div>
-      <p>Learning Designer · Higher Education</p>
-    </div>
-  </div>
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Bianca <span>Muteve</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="casestudies.html">Case Studies</a></li>
+    <li><a href="mailto:your@email.com">Contact</a></li>
+  </ul>
+</nav>
 
-  <!-- Intro -->
-  <div class="intro">
-    <div class="section-label">The Simulation</div>
-    <p class="intro-headline">"How I use AI as a genuine thinking partner — not a content generator — in complex curriculum design."</p>
-    <p>This artefact documents a live simulation in which I designed a new first-year theology unit from scratch using AI as a collaborative partner. The unit — exploring the intersection of Catholic Social Teaching and Indigenous Australian spirituality — was chosen deliberately for its cultural complexity, ethical stakes, and multi-stakeholder demands. The simulation demonstrates my professional judgement, design process, and critical approach to AI assisted practice.</p>
-  </div>
-
-  <!-- Two column -->
-  <div class="two-col">
-    <div class="sim-block">
-      <div class="section-label">What Was Designed</div>
-      <h3>Six-Week Unit: Ways of Knowing</h3>
-      <ul class="week-list">
-        <li><span class="week-num">WK 1</span> How Do We Know What We Know? — Introducing epistemology</li>
-        <li><span class="week-num">WK 2</span> Knowing Through Relationship — Community and belonging</li>
-        <li><span class="week-num">WK 3</span> Knowing Through Place — Land, Country, and creation</li>
-        <li><span class="week-num">WK 4</span> Knowing Through Suffering — Justice, healing, and truth</li>
-        <li><span class="week-num">WK 5</span> Knowing Through Practice — Wisdom and professional life</li>
-        <li><span class="week-num">WK 6</span> Knowing Yourself — Reflection and positionality</li>
-      </ul>
-    </div>
-
-    <div class="moments-block">
-      <div class="section-label">Moments of Professional Judgement</div>
-      <h3>Where expertise shaped the AI</h3>
-      <div class="moment">
-        <div class="moment-title">Correcting the outcomes</div>
-        <p>AI generated 6 outcomes. I applied curriculum design principles and reduced to 4 — the right number for a 6-week unit.</p>
-      </div>
-      <div class="moment">
-        <div class="moment-title">Challenging the MCQ</div>
-        <p>AI accepted a proposed MCQ quiz. I flagged its misalignment with the unit's epistemological intent and proposed a scenario-based alternative.</p>
-      </div>
-      <div class="moment">
-        <div class="moment-title">Holding the cultural stakes</div>
-        <p>I consistently named the ethical weight of Indigenous content — the AI reflected this back but the compass was mine.</p>
-      </div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Learning Designer · Educator · Innovator</div>
+    <h1 class="hero-name">Bianca<br>Muteve</h1>
+    <p class="hero-title">Learning design grounded in empathy, evidence,<br>and real-world purpose.</p>
+    <p class="hero-philosophy">
+      Effective learning design begins with empathy and ends with measurable impact. 
+      I create experiences that are not only engaging but purposeful — enabling people 
+      to perform confidently in real-world contexts.
+    </p>
+    <div class="hero-ctas">
+      <a href="casestudies.html" class="btn-primary">View Case Studies →</a>
+      <a href="mailto:your@email.com" class="btn-secondary">Get in Touch</a>
     </div>
   </div>
 
-  <!-- Outcomes strip -->
-  <div class="outcomes-strip">
-    <div class="section-label">Final Unit Learning Outcomes</div>
-    <div class="outcomes-grid">
-      <div class="outcome-item">
-        <div class="outcome-num">01</div>
-        <p>Foundations and Understanding — Ways of knowing, CST principles, Indigenous spiritual foundations</p>
-      </div>
-      <div class="outcome-item">
-        <div class="outcome-num">02</div>
-        <p>Dialogue and Critical Inquiry — Analyse convergence, divergence, and tension across shared human themes</p>
-      </div>
-      <div class="outcome-item">
-        <div class="outcome-num">03</div>
-        <p>Reflection and Cultural Responsibility — Positionality, assumptions, and culturally safe engagement</p>
-      </div>
-      <div class="outcome-item">
-        <div class="outcome-num">04</div>
-        <p>Professional and Ethical Application — Apply both frameworks to disciplinary practice and ethical challenges</p>
-      </div>
+  <div class="hero-photo">
+    <div class="photo-frame">
+      <img src="bianca.jpg" alt="Bianca Muteve presenting at a professional conference" style="object-position: center 20%;">
+    </div>
+    <div class="photo-accent"></div>
+    <div class="photo-tag">Presenting at Conference</div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-label">LMS Platforms<br>Canvas · Moodle · IMC</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">2</div>
+      <div class="stat-label">Sectors<br>Higher Ed · Corporate L&D</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Core Frameworks<br>Backward Design · UDL · Constructivism</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Commitment to<br>Learner-Centred Design</div>
     </div>
   </div>
-
-  <!-- CTA Bar -->
-  <div class="cta-bar">
-    <p>This one-pager is a summary. The full case study documents the complete design process — structural decisions, assessment rationale, learning outcomes, and moments of professional judgement in detail.</p>
-    <a class="cta-btn" href="bianca_muteve_case_study-3.pdf" target="_blank">
-      ↓ Download Full Case Study
-    </a>
-
-  </div>
-
-  <!-- Capabilities demonstrated -->
-  <div class="capabilities">
-    <div class="section-label">Capabilities Demonstrated</div>
-    <div class="cap-grid">
-      <div class="cap-item">
-        <div class="cap-icon">⟳</div>
-        <h4>AI as Collaborator</h4>
-        <p>Using AI iteratively to develop, stress-test, and refine design decisions — not to generate finished content.</p>
-      </div>
-      <div class="cap-item">
-        <div class="cap-icon">◈</div>
-        <h4>Curriculum Architecture</h4>
-        <p>Backward design from outcomes through assessment to weekly sequence, with coherent pedagogical logic.</p>
-      </div>
-      <div class="cap-item">
-        <div class="cap-icon">◎</div>
-        <h4>Cultural Competency</h4>
-        <p>Navigating sensitive cross-cultural content with ethical awareness and structural safeguards.</p>
-      </div>
-      <div class="cap-item">
-        <div class="cap-icon">⬡</div>
-        <h4>Inclusive Design</h4>
-        <p>Scaffolding for a diverse cohort — international students, secular learners, varied disciplines — without lowering expectations.</p>
-      </div>
-      <div class="cap-item">
-        <div class="cap-icon">◻</div>
-        <h4>SME Partnership</h4>
-        <p>Designing for multi-voice collaboration with clear ownership structures and production-realistic workflows.</p>
-      </div>
-      <div class="cap-item">
-        <div class="cap-icon">◇</div>
-        <h4>Critical AI Literacy</h4>
-        <p>Knowing when to accept, adapt, challenge, or override AI output — and articulating the professional reasoning behind each decision.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <div class="footer">
-    <p>Simulation conducted April 2026 · Higher Education · Learning Design</p>
-    <div class="footer-links">
-      <a href="mailto:your@email.com">your@email.com</a>
-      <a href="https://linkedin.com/in/yourprofile" target="_blank">LinkedIn</a>
-      <a href="bianca_muteve_case_study-3.pdf" target="_blank">Full Case Study ↓</a>
-    </div>
-    <div class="footer-name">Bianca Muteve</div>
-  </div>
-
 </div>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy">
+  <div class="section-eyebrow">Design Philosophy</div>
+  <h2 class="section-heading">Five principles that shape every design decision</h2>
+  <div class="philosophy-grid">
+    <div class="phil-card">
+      <div class="phil-num">01</div>
+      <div class="phil-title">Learner-Centred by Default</div>
+      <p class="phil-body">I design with the learner's reality in mind. In a globalised world, learners bring diverse cultural backgrounds, identities, and experiences. When learners see themselves represented in content and examples, they connect, participate, and persist.</p>
+    </div>
+    <div class="phil-card">
+      <div class="phil-num">02</div>
+      <div class="phil-title">Inclusion as Foundation</div>
+      <p class="phil-body">Accessibility is not a retrofit — it is a design principle. I intentionally design learning that is usable by all learners from the outset: clear structure, readable formats, multiple ways to engage, and technology that reduces barriers rather than creating them.</p>
+    </div>
+    <div class="phil-card">
+      <div class="phil-num">03</div>
+      <div class="phil-title">Evidence-Based Practice</div>
+      <p class="phil-body">My approach is grounded in learning science: cognitive load theory, spaced and retrieval practice, authentic assessment, and transfer-focused design. Every decision is purposeful, not habitual.</p>
+    </div>
+    <div class="phil-card">
+      <div class="phil-num">04</div>
+      <div class="phil-title">Technology as Tool</div>
+      <p class="phil-body">I use digital tools intentionally to improve access, flexibility, and feedback — while keeping the experience simple and aligned with outcomes. Good design is often invisible. When learning is well-designed, learners feel capable, not distracted.</p>
+    </div>
+    <div class="phil-card">
+      <div class="phil-num">05</div>
+      <div class="phil-title">Measuring What Matters</div>
+      <p class="phil-body">I measure success through performance, not participation. Completion rates have their place, but the true indicator of effective learning is whether people can apply new knowledge and skills in their work and lives.</p>
+    </div>
+    <div class="phil-card" style="background: var(--ink); display: flex; align-items: center; justify-content: center; padding: 36px 32px;">
+      <p style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 15px; color: rgba(245,240,232,0.85); line-height: 1.7; text-align: center;">
+        "Design with intention · Design for people · Design for inclusion · Design for the learner"
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FRAMEWORKS -->
+<section class="frameworks">
+  <div class="frameworks-inner">
+    <div class="section-eyebrow">Frameworks &amp; Approaches</div>
+    <h2 class="section-heading" style="color: var(--cream);">Three frameworks working together, not independently</h2>
+    <div class="framework-row">
+      <div class="framework-item">
+        <span class="framework-icon">◈</span>
+        <h3 class="framework-name">Backward Design</h3>
+        <p class="framework-desc">The structural logic of everything I build. I start with performance outcomes and design towards them, ensuring every element of a course serves a clear purpose and nothing exists without reason.</p>
+      </div>
+      <div class="framework-item">
+        <span class="framework-icon">◎</span>
+        <h3 class="framework-name">Constructivism &amp; Active Learning</h3>
+        <p class="framework-desc">The learner experience. I prioritise meaningful engagement, practice, and application over passive content delivery — designing for what learners do, not just what they receive.</p>
+      </div>
+      <div class="framework-item">
+        <span class="framework-icon">⬡</span>
+        <h3 class="framework-name">Universal Design for Learning</h3>
+        <p class="framework-desc">The inclusivity layer. I build in flexibility, representation, and multiple means of engagement from the outset — not as an afterthought, but as a foundational design requirement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOCUS AREAS -->
+<section class="focus">
+  <div class="section-eyebrow">Current Focus Areas</div>
+  <h2 class="section-heading">Where I am most energised right now</h2>
+  <div class="focus-grid">
+    <div class="focus-card">
+      <span class="focus-tag">Student Experience</span>
+      <h3 class="focus-title">Belonging and Transition</h3>
+      <p class="focus-body">Designing learning environments where all students feel they belong and can succeed — with particular attention to representation, connection, and the critical transition into university study.</p>
+    </div>
+    <div class="focus-card">
+      <span class="focus-tag">Assessment</span>
+      <h3 class="focus-title">Authentic Assessment</h3>
+      <p class="focus-body">Moving beyond traditional examinations towards assessment tasks that reflect real-world professional contexts — building graduate capability and confidence alongside disciplinary knowledge.</p>
+    </div>
+    <div class="focus-card">
+      <span class="focus-tag">Innovation</span>
+      <h3 class="focus-title">AI and Emerging Ed Tech</h3>
+      <p class="focus-body">Exploring how artificial intelligence and emerging technologies can be integrated thoughtfully — improving access, personalisation, and feedback while maintaining a clear focus on learning outcomes over novelty.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO STRIP -->
+<div class="portfolio-strip">
+  <div class="portfolio-inner">
+    <div class="portfolio-text">
+      <h2>See the thinking behind the design</h2>
+      <p>My case studies document not just what was built, but how decisions were made — the design tensions navigated, the professional judgements applied, and the reasoning behind every structural choice.</p>
+    </div>
+    <div class="portfolio-ctas">
+      <a href="casestudies.html" class="btn-light">View Case Studies →</a>
+    </div>
+  </div>
+</div>
+
+<!-- WORKING WITH ME -->
+<section class="working">
+  <div class="working-left">
+    <div class="section-eyebrow">Working With Me</div>
+    <h2 class="section-heading">What collaborators can expect</h2>
+    <p>I work best in long-term embedded partnerships with academics. I invest time understanding a subject area, its disciplinary culture, and the specific challenges learners face in practice.</p>
+    <p>My background spans both higher education and corporate learning and development — which informs how I approach curriculum design with a practical eye for transfer, efficiency, and learner motivation.</p>
+    <div class="non-negotiable">
+      <p>"Learning should be designed with the learner's experience and success at the centre. I am always willing to adapt methods, tools, and formats — but I remain committed to designing learning that is inclusive, purposeful, and focused on real outcomes."</p>
+    </div>
+  </div>
+
+  <div class="working-right">
+    <ul class="expect-list">
+      <li class="expect-item">
+        <span class="expect-arrow">→</span>
+        <div>
+          <div class="expect-title">Detailed questions early</div>
+          <div class="expect-body">Expect me to ask about purpose, context, and learner challenges before discussing content or format. This is how I ensure the design is meaningful and achievable.</div>
+        </div>
+      </li>
+      <li class="expect-item">
+        <span class="expect-arrow">→</span>
+        <div>
+          <div class="expect-title">Evidence-led decisions</div>
+          <div class="expect-body">I make design choices based on learning principles and research. I will share my reasoning and welcome dialogue when perspectives differ.</div>
+        </div>
+      </li>
+      <li class="expect-item">
+        <span class="expect-arrow">→</span>
+        <div>
+          <div class="expect-title">Collaborative by default</div>
+          <div class="expect-body">I treat academic partners as co-designers. I aim for clear expectations, early feedback loops, and shared problem-solving throughout the process.</div>
+        </div>
+      </li>
+      <li class="expect-item">
+        <span class="expect-arrow">→</span>
+        <div>
+          <div class="expect-title">Iterative refinement</div>
+          <div class="expect-body">I expect the design to change. Iteration is not a sign of failure — it is part of a healthy, evidence-informed process.</div>
+        </div>
+      </li>
+      <li class="expect-item">
+        <span class="expect-arrow">→</span>
+        <div>
+          <div class="expect-title">Respectful challenge</div>
+          <div class="expect-body">I may gently challenge approaches that prioritise content volume over learning effectiveness — always respectfully, with evidence, and in service of the learner.</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-name">Bianca <span>Muteve</span></div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="casestudies.html">Case Studies</a></li>
+      <li><a href="https://linkedin.com/in/yourprofile" target="_blank">LinkedIn</a></li>
+      <li><a href="mailto:your@email.com">Email</a></li>
+    </ul>
+    <div class="footer-copy">Learning Designer · Educator · Innovator · 2026</div>
+  </div>
+</footer>
+
 </body>
 </html>
